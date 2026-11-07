@@ -268,9 +268,17 @@
       })
       .join("");
     var google = hotel.google || {};
-    var googleCell = google.verified
-      ? escapeHtml(google.score + "/5 · " + google.count + " reviews")
-      : link(google.href || hotel.mapsUrl, google.label || "Not verified—open Maps");
+    var googleBlock = google.verified
+      ? '<p class="score">' +
+        escapeHtml(Number(google.score).toFixed(1)) +
+        '<span>/5</span></p><p>Google · ' +
+        Number(google.count).toLocaleString("en-US") +
+        " ratings</p><p>" +
+        link(google.href, "Google Maps") +
+        "</p>"
+      : '<p class="score score-missing">Not verified</p><p>Google · ' +
+        link(google.href || hotel.mapsUrl, google.label || "Not verified—open Maps") +
+        "</p>";
     return (
       '<section class="scorecard"><h3>Guest ratings</h3>' +
       '<div class="score-pair">' +
@@ -283,9 +291,9 @@
       "</p><p class=\"checked\">Checked " +
       escapeHtml(r.checked) +
       ".</p></div>" +
-      '<div><p class="score score-missing">Not verified</p><p>Google · ' +
-      googleCell +
-      "</p><p class=\"checked\">Checked " +
+      "<div>" +
+      googleBlock +
+      '<p class="checked">Checked ' +
       escapeHtml(google.checked || "") +
       ".</p></div></div>" +
       "<ul>" +
@@ -308,6 +316,13 @@
       .map(function (row) {
         var hotel = byId[row.hotelId];
         var google = (hotel && hotel.google) || {};
+        var googleCell = google.verified
+          ? escapeHtml(Number(google.score).toFixed(1)) +
+            "/5 · " +
+            Number(google.count).toLocaleString("en-US") +
+            "<br>" +
+            link(google.href, "Google Maps")
+          : link(google.href, google.label || "Not verified—open Maps");
         return (
           "<tr><td>" +
           escapeHtml(row.place) +
@@ -320,7 +335,9 @@
           "</td><td>" +
           Number(row.count).toLocaleString("en-US") +
           "</td><td>" +
-          link(google.href, google.label || "Not verified—open Maps") +
+          escapeHtml(row.googlePlace || "") +
+          "</td><td>" +
+          googleCell +
           "</td></tr>"
         );
       })
@@ -332,7 +349,7 @@
       escapeHtml(table.heading) +
       "</h2></div><p>" +
       escapeHtml(table.note) +
-      '</p><div class="table-wrap"><table class="rank"><thead><tr><th>Place</th><th>Hotel</th><th>TripAdvisor</th><th>Reviews</th><th>Google</th></tr></thead><tbody>' +
+      '</p><div class="table-wrap"><table class="rank"><thead><tr><th>TripAdvisor place</th><th>Hotel</th><th>TripAdvisor</th><th>TA reviews</th><th>Google place</th><th>Google</th></tr></thead><tbody>' +
       rows +
       "</tbody></table></div><p class=\"checked\">TripAdvisor checked " +
       escapeHtml(table.checked) +
