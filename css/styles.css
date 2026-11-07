@@ -295,6 +295,115 @@ h1 {
 
 .address { margin-top: -0.2rem; color: var(--muted); }
 
+.carousel {
+  position: relative;
+  margin: 0.4rem 0 1rem;
+}
+
+.carousel-viewport {
+  overflow: hidden;
+  border-radius: 0.9rem;
+  background: var(--bg-deep);
+  touch-action: pan-y;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.25s ease;
+}
+
+.slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  margin: 0;
+}
+
+.slide img {
+  display: block;
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  background: #efe8dc;
+}
+
+.slide figcaption {
+  margin: 0;
+  padding: 0.55rem 3.2rem 0.7rem 0.75rem;
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.cat {
+  display: inline-block;
+  margin-right: 0.35rem;
+  padding: 0.05rem 0.4rem;
+  border-radius: 999px;
+  background: var(--pine-soft);
+  color: var(--pine);
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.car-btn {
+  position: absolute;
+  top: 100px;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 253, 248, 0.94);
+  color: var(--ink);
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.car-prev { left: 0.4rem; }
+.car-next { right: 0.4rem; }
+
+.car-dots {
+  display: flex;
+  gap: 0.35rem;
+  justify-content: center;
+  margin-top: 0.45rem;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 0;
+  background: var(--line);
+  padding: 0;
+  cursor: pointer;
+}
+
+.dot.is-active { background: var(--pine); }
+
+.streetview { color: var(--muted); font-size: 0.92rem; }
+
+.scorecard { margin: 0.2rem 0 0.8rem; }
+
+.score-pair {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.score {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 2.4rem;
+  line-height: 1;
+}
+
+.score span { font-size: 1.1rem; color: var(--muted); }
+
+.score-missing { font-size: 1.35rem; color: var(--muted); }
+
+.rank td, .rank th { white-space: nowrap; }
+
 .photo {
   margin: 0.4rem 0 1rem;
   background: var(--bg-deep);
@@ -430,6 +539,8 @@ th, td {
   #map { height: 460px; }
   .hotel { padding: 1.4rem 1.4rem 1.3rem; }
   .split { grid-template-columns: 0.8fr 1.2fr; }
+  .slide img { height: 360px; }
+  .score-pair { grid-template-columns: 1fr 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {

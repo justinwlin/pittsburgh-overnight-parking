@@ -33,7 +33,7 @@ window.GUIDE = {
         hotelId: "doubletree",
         kicker: "If a secured garage is nonnegotiable",
         title: "DoubleTree Downtown",
-        text: "Covered onsite garage, staffed 24 hours, valet, in-and-out included. Strongest verified garage. Not a verdict that downtown is unsafe.",
+        text: "Covered onsite garage, listed as secured and staffed 24 hours, valet only, in-and-out included. Do not assume valet meets the car at the front door. Follow the hotel’s arrival instructions.",
       },
     ],
   },
@@ -41,13 +41,44 @@ window.GUIDE = {
     "DoubleTree, Hilton Garden Inn, and Oaklander room figures are Visit Pittsburgh’s “Average Room Rate.” Marriott North uses KAYAK’s average Sun–Thu and Fri–Sat prices over the last two weeks. None of these is a quote for particular dates or a check of availability. Taxes and fees are unspecified. KAYAK does not say whether tax is inside its average.",
     "Chase figures are arithmetic only: the dollar amount times 100 (base) and times 50 (Points Boost). They are not a guaranteed redemption. Parking may not be redeemable with points.",
     "A secured label is the source’s word. It is not a promise against theft. Bring valuables inside, including from an open lot.",
+    "Guest ratings are not a safety score. TripAdvisor and Google are not combined, and review count does not break a tie on the average.",
   ],
+  ratingTable: {
+    kicker: "TripAdvisor guest rating",
+    heading: "Who rates highest among these four",
+    note: "Ranked only by the verified TripAdvisor average, out of 5. Hilton Garden Inn is first at 4.4. Marriott North and The Oaklander both sit at 4.2, so they tie. Review count does not split that tie. DoubleTree is 3.9, with the most reviews. This is not a Google ranking, not a safety ranking, and not a claim that the gaps are statistically meaningful. Google scores were not readable on the public Maps pages checked.",
+    checked: "November 7, 2026, about 4:06 p.m. Eastern",
+    googleChecked: "November 7, 2026, 4:10 p.m. Eastern",
+    rows: [
+      { hotelId: "hgi", place: "1", score: "4.4/5", count: 690 },
+      { hotelId: "marriott-north", place: "2, tied", score: "4.2/5", count: 679 },
+      { hotelId: "oaklander", place: "2, tied", score: "4.2/5", count: 190 },
+      { hotelId: "doubletree", place: "4", score: "3.9/5", count: 2237 },
+    ],
+  },
+  crimeMaps: {
+    heading: "Official crime-data references",
+    lede: "These links are separate from the hotel pin map. They do not color a hotel safe or unsafe. Pittsburgh’s dashboards do not cover Marriott North. Cranberry is outside the city police jurisdiction.",
+    links: [
+      { label: "Pittsburgh police data portal (a catalog, not itself an incident map)", href: "https://www.pittsburghpa.gov/Safety/Police/Police-Data-Portal" },
+      { label: "Monthly Incident Dashboard (Power BI). The page shell loaded; the filters were not clicked through.", href: "https://app.powerbigov.us/view?r=eyJrIjoiM2FiNWUxMDUtY2MyMS00NWY2LTllZDEtZWY2OWM0NWM2ZWIyIiwidCI6ImY1ZjQ3OTE3LWM5MDQtNDM2OC05MTIwLWQzMjdjZjE3NTU5MSJ9" },
+      { label: "Violent Crimes Dashboard (Power BI). Same limit: shell available, controls not tested, period not verified.", href: "https://app.powerbigov.us/view?r=eyJrIjoiMDYzNWMyNGItNWNjMS00ODMwLWIxZDgtMTNkNzhlZDE2OWFjIiwidCI6ImY1ZjQ3OTE3LWM5MDQtNDM2OC05MTIwLWQzMjdjZjE3NTU5MSJ9" },
+      { label: "CrimeMapping homepage. The city links this generic page, not a prefiltered Pittsburgh map.", href: "https://crimemapping.com/" },
+      { label: "City incident dataset (a table, not a map)", href: "https://data.wprdc.org/dataset/monthly-criminal-activity-dashboard" },
+      { label: "Cranberry Township police reports (not a verified crime map)", href: "https://www.cranberrytownship.org/Archive.aspx?AMID=68" },
+    ],
+    notes: [
+      "DoubleTree and Hilton Garden Inn sit in the Central Business District. The Oaklander is in North Oakland. Marriott North is in Cranberry Township, which Pittsburgh city data does not cover.",
+      "Do not treat a dashboard filter you have not set as if this page set it. No neighborhood deep link was invented.",
+      "City rows run through October 31, 2026 in the earlier datastore read. The dashboard’s own visible period was not verified. Dataset metadata still lags. Cranberry’s January–September 2026 reports are township-wide and are not a NIBRS submission, so they are not compared with the city totals.",
+    ],
+  },
   safety: {
     heading: "Downtown is not a safety verdict",
     lede: "Hearing that downtown might not be safe is not a finding about these hotels. Downtown is not treated as inherently unsafe, and a suburban lot is not treated as safer. No hotel-level comparison of risk was established. Official counts below use different agencies and different rules, so they are not a ranking. Choose the arrival you want: an outdoor lot at the hotel, or a secured garage. Bring valuables inside either way.",
     practical: [
       "Arrive before late night when the drive allows.",
-      "Unload at the hotel entrance, and at the DoubleTree use the valet point.",
+      "Unload where the hotel tells you to. Do not assume DoubleTree valet meets the car at the front door. An older guest account places the valet inside the garage, and the current curbside procedure was not verified.",
       "Take luggage and anything you care about inside, including from a garage called secured.",
       "Lock the car and leave nothing visible.",
       "Use the direct hotel route. Skip shortcuts and quiet riverfront paths after dark.",
@@ -205,7 +236,7 @@ window.GUIDE = {
     ],
   },
   mapNote:
-    "One pin per hotel, on the hotel itself. Marriott North is in Cranberry Woods, about 20 miles north of downtown on Marriott’s page, so the map zooms out to show it. Tiles and coordinates are © OpenStreetMap contributors.",
+    "One pin per hotel, on the hotel itself. This is a location map, not a crime map. Marriott North is in Cranberry Woods, about 20 miles north of downtown on Marriott’s page, so the map zooms out to show it. Tiles and coordinates are © OpenStreetMap contributors.",
   hotels: [
     {
       id: "marriott-north",
@@ -265,6 +296,14 @@ window.GUIDE = {
         creditHref: "https://www.marriott.com/en-us/hotels/pitno-pittsburgh-marriott-north/overview/",
         missing: "The exterior photo did not load. The hotel’s own overview is linked below.",
       },
+      gallery: [
+        { src: "assets/marriott-north/entrance.jpg", category: "Exterior", alt: "Covered entrance drive of Pittsburgh Marriott North.", credit: "Pittsburgh Marriott North photo gallery, entrance image. Hotel media; no reuse license is asserted. Not a garage photo.", creditHref: "https://www.marriott.com/en-us/hotels/pitno-pittsburgh-marriott-north/photos/" },
+        { src: "assets/marriott-north/lobby.jpg", category: "Lobby", alt: "Lobby at Pittsburgh Marriott North.", credit: "Pittsburgh Marriott North photo gallery, labeled Lobby. Hotel media; no reuse license is asserted.", creditHref: "https://www.marriott.com/en-us/hotels/pitno-pittsburgh-marriott-north/photos/" },
+        { src: "assets/marriott-north/room.jpg", category: "Guest room", alt: "King guest room at Pittsburgh Marriott North.", credit: "Pittsburgh Marriott North photo gallery, labeled King Guest Room. Hotel media; no reuse license is asserted.", creditHref: "https://www.marriott.com/en-us/hotels/pitno-pittsburgh-marriott-north/photos/" },
+      ],
+      streetView: { href: "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=40.684242,-80.08864", label: "Street View near hotel — parking entrance unverified", note: "Near-hotel viewpoint, not a confirmed lot entrance. No garage photo was verified." },
+      google: { verified: false, href: "https://www.google.com/maps/search/?api=1&query=Pittsburgh%20Marriott%20North%20100%20Cranberry%20Woods%20Drive%20Cranberry%20Township%20PA", label: "Not verified—open Maps", checked: "November 7, 2026, 4:10 p.m. Eastern. The public Maps page was a shell with no readable rating." },
+      reviews: { score: 4.2, count: 679, checked: "November 7, 2026, about 4:06 p.m. Eastern", href: "https://www.tripadvisor.ca/Hotel_Review-g52438-d268494-Reviews-Pittsburgh_Marriott_North-Cranberry_Township_Butler_County_Pennsylvania.html", limit: "Selected guest opinions, not a representative audit and not a safety finding. Dates are review dates unless a stay date is named.", themes: ["Highway access and nearby restaurants are praised (BadermanTowson_MD, August 2026). A September 2024 stay, posted October 2024, says Turnpike exits can be confusing (tbga53107).", "Clean, spacious rooms and friendly staff are praised (Daniel K, October 2025; Heidi C, September 2025).", "Sleep is mixed: Miria G (June 2026) and Jeff L (August 2024) criticize mattresses or pillows, while tbga53107 praises the bed. Heidi C also reports weak air conditioning and a strong deodorizing scent."] },
       sources: [
         {
           label: "Marriott overview",
@@ -320,7 +359,7 @@ window.GUIDE = {
           "On the hotel property, off I-579. Covered, and Hilton explicitly lists it as secured.",
           "24-hour staffed garage. Valet only: self-parking is not offered.",
           "In-and-out privileges are included.",
-          "Use the hotel arrival and valet point for luggage, rather than walking over from an unrelated public garage.",
+          "Valet only. An older guest account says the valet was stationed inside the garage, not at the curb. The current curbside handoff is not verified. Follow the hotel’s arrival and garage instructions that night, and do not walk over from an unrelated public garage.",
         ],
         caveats: [
           "The official parking page lists the valet fee as $45 and does not state the billing unit. Read it as “$45 listed valet fee; confirm overnight billing,” not as a confirmed per-night total.",
@@ -330,7 +369,7 @@ window.GUIDE = {
         ],
       },
       safety:
-        "The practical advantage is the staffed onsite garage: you can hand the car to valet instead of walking from a separate garage. Downtown incident totals cover a much larger area than this hotel and cannot establish its individual risk. No audited entrance-lighting or camera-coverage study was found.",
+        "The garage is on site and staffed, which can avoid a walk from a separate public garage. It does not promise that valet collects the car at the front door. Downtown incident totals cover a much larger area than this hotel and cannot establish its individual risk. No audited entrance-lighting or camera-coverage study was found.",
       photo: {
         src: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Doubletree_Hotel%2C_Pittsburgh%2C_2025-03-23.jpg/1280px-Doubletree_Hotel%2C_Pittsburgh%2C_2025-03-23.jpg",
         alt: "Red-brick DoubleTree hotel tower in downtown Pittsburgh, with the DoubleTree name running down the facade.",
@@ -341,6 +380,12 @@ window.GUIDE = {
         missing:
           "The exterior photo did not load. The hotel’s own site is linked below.",
       },
+      gallery: [
+        { src: "assets/doubletree/exterior.jpg", category: "Exterior", alt: "Red-brick DoubleTree tower in downtown Pittsburgh with the DoubleTree name on the facade.", credit: "DoubleTree at One Bigelow Square. Photo: Cbaile19, March 23, 2025. CC0. Hilton’s gallery did not return room or lobby files. This is not a garage photo.", creditHref: "https://commons.wikimedia.org/wiki/File:Doubletree_Hotel,_Pittsburgh,_2025-03-23.jpg" },
+      ],
+      streetView: { href: "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=40.44071,-79.994064", label: "Street View near hotel — parking entrance unverified", note: "Near-hotel viewpoint, not a confirmed garage door. Do not read a street view of the front as proof that valet meets the car there." },
+      google: { verified: false, href: "https://www.google.com/maps/search/?api=1&query=DoubleTree%20by%20Hilton%20Hotel%20Suites%20Pittsburgh%20Downtown%20One%20Bigelow%20Square%20Pittsburgh%20PA", label: "Not verified—open Maps", checked: "November 7, 2026, 4:10 p.m. Eastern. The public Maps page was a shell with no readable rating." },
+      reviews: { score: 3.9, count: 2237, checked: "November 7, 2026, about 4:06 p.m. Eastern", href: "https://www.tripadvisor.com/Hotel_Review-g53449-d115503-Reviews-or50-DoubleTree_by_Hilton_Hotel_Suites_Pittsburgh_Downtown-Pittsburgh_Pennsylvania.html", limit: "The aggregate is current. The fetched review page is an older offset (or50), so these opinions skew older. They are not a consensus and not a safety finding.", themes: ["Chris19342 (February 2023) found valet convenient but reported a duplicate vehicle charge that had to be corrected.", "A May 2023 stay describes a quiet room, comfortable beds, and clean rooms. Other displayed reviews, including Chris19342, mention a musty bathroom or dated rooms. One complaint is not proof of a current property-wide problem.", "One older account says the guest drove to the garage where valet was stationed. Current curbside procedure is not verified. Follow the hotel’s arrival instructions."] },
       sources: [
         {
           label: "Hilton hotel page",
@@ -416,6 +461,12 @@ window.GUIDE = {
         missing:
           "The building photo did not load. The hotel’s own site is linked below.",
       },
+      gallery: [
+        { src: "assets/hgi/building.jpg", category: "Building", alt: "Tower Two-Sixty from Market Square, the building that houses Hilton Garden Inn Pittsburgh Downtown.", credit: "Tower Two-Sixty from Market Square. The hotel is in this building; the photo is not a room and not a garage interior. Photo: Cbaile19, June 13, 2019. CC0. Hilton’s gallery did not return room or lobby files.", creditHref: "https://commons.wikimedia.org/wiki/File:Pittsburgh-Downtown-2019-06-13-Tower-Two-Sixty-01.jpg" },
+      ],
+      streetView: { href: "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=40.44014,-80.001465", label: "Street View near hotel — parking entrance unverified", note: "Near-hotel viewpoint, not a confirmed garage entrance." },
+      google: { verified: false, href: "https://www.google.com/maps/search/?api=1&query=Hilton%20Garden%20Inn%20Pittsburgh%20Downtown%20250%20Forbes%20Avenue%20Pittsburgh%20PA", label: "Not verified—open Maps", checked: "November 7, 2026, 4:10 p.m. Eastern. The public Maps page was a shell with no readable rating." },
+      reviews: { score: 4.4, count: 690, checked: "November 7, 2026, about 4:06 p.m. Eastern", href: "https://www.tripadvisor.com.au/Hotel_Review-g53449-d8360778-Reviews-Hilton_Garden_Inn_Pittsburgh_Downtown-Pittsburgh_Pennsylvania.html", limit: "Selected recent opinions, not a consensus and not a safety score. Use the hotel’s current parking terms, not older guest prices.", themes: ["Louise L (July 2026) praises clean, quiet rooms and comfortable beds, and describes crowded check-in and parking-billing confusion.", "Nathan (posted August 2026, stay May 2026) calls parking readily accessible. Chandler E (October 2025) reports a helpful desk, a clean room, and in-and-out arranged by the hotel.", "Safety comments are subjective: Gerard H (March 2025) calls the area quiet; Leslie J (August 2025) reports no problems but says they walked cautiously. Neither establishes crime risk.", "Leslie J calls the spiral garage awkward and mentions construction expected through April 2026. Do not treat that as current construction."] },
       sources: [
         {
           label: "Hilton hotel page",
@@ -502,6 +553,15 @@ window.GUIDE = {
         },
         missing: "The hotel photos did not load. The hotel’s own site is linked below.",
       },
+      gallery: [
+        { src: "assets/oaklander/exterior.jpg", category: "Exterior", alt: "The Oaklander Hotel at dusk, with the hotel name on the building.", credit: "The Oaklander photo gallery, labeled Exterior. Hotel media; no reuse license is asserted. Not a garage photo.", creditHref: "https://www.marriott.com/en-us/hotels/pitak-the-oaklander-hotel-autograph-collection/photos/" },
+        { src: "assets/oaklander/entrance.jpg", category: "Entrance", alt: "Revolving door at The Oaklander with an Autograph Collection plaque.", credit: "The Oaklander photo gallery, labeled Entrance. This is not a verified valet door or garage interior. Hotel media; no reuse license is asserted.", creditHref: "https://www.marriott.com/en-us/hotels/pitak-the-oaklander-hotel-autograph-collection/photos/" },
+        { src: "assets/oaklander/lobby.jpg", category: "Lobby", alt: "Lobby of The Oaklander Hotel.", credit: "The Oaklander photo gallery, labeled Lobby. Hotel media; no reuse license is asserted.", creditHref: "https://www.marriott.com/en-us/hotels/pitak-the-oaklander-hotel-autograph-collection/photos/" },
+        { src: "assets/oaklander/room.jpg", category: "Guest room", alt: "King guest room at The Oaklander Hotel.", credit: "The Oaklander photo gallery, labeled King Guest Room. Hotel media; no reuse license is asserted.", creditHref: "https://www.marriott.com/en-us/hotels/pitak-the-oaklander-hotel-autograph-collection/photos/" },
+      ],
+      streetView: { href: "https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=40.445156,-79.95484", label: "Street View near hotel — parking entrance unverified", note: "Near-hotel viewpoint. The hotel’s own coordinates differ slightly, which is another reason this is not an exact entrance." },
+      google: { verified: false, href: "https://www.google.com/maps/search/?api=1&query=The%20Oaklander%20Hotel%205130%20Bigelow%20Boulevard%20Pittsburgh%20PA", label: "Not verified—open Maps", checked: "November 7, 2026, 4:10 p.m. Eastern. The public Maps page was a shell with no readable rating." },
+      reviews: { score: 4.2, count: 190, checked: "November 7, 2026, about 4:06 p.m. Eastern", href: "https://www.tripadvisor.co.uk/Hotel_Review-g53449-d14205682-Reviews-The_Oaklander_Hotel_Autograph_Collection-Pittsburgh_Pennsylvania.html", limit: "Selected opinions, not a consensus and not a safety certification. Older valet stories are not current prices or proof of garage security.", themes: ["Andrew K (a review displayed as November 4) praises quiet sleep and a comfortable king bed, and criticizes storage and the shower toiletries layout.", "HK (September 2025) says valet was efficient and criticizes room and gym cleanliness. Other guests praise clean rooms, so cleanliness is mixed.", "Sanjay L (August 2026) praises hospitality. Guests also praise the university and cultural location.", "Older accounts describe a 10th-floor reception and valet waits. Those are service stories, not confirmation of garage security."] },
       sources: [
         {
           label: "The Oaklander Hotel",

@@ -179,26 +179,166 @@
       '<div class="map-keys" id="map-keys"></div>';
   }
 
-  function photoFigure(hotel) {
-    var photo = hotel.photo;
+  function safeSrc(url) {
+    if (typeof url !== "string") return "";
+    if (/^https:\/\//i.test(url)) return url;
+    if (/^assets\/[a-z0-9][a-z0-9._/-]*$/i.test(url)) return url;
+    return "";
+  }
+
+  function carouselHtml(hotel) {
+    var slides = hotel.gallery || [];
+    if (!slides.length && hotel.photo) {
+      slides = [
+        {
+          src: hotel.photo.src,
+          alt: hotel.photo.alt,
+          category: "Exterior",
+          credit: hotel.photo.credit,
+          creditHref: hotel.photo.creditHref,
+        },
+      ];
+    }
+    var figures = slides
+      .map(function (slide, index) {
+        return (
+          '<figure class="slide">' +
+          '<img src="' +
+          escapeHtml(safeSrc(slide.src)) +
+          '" alt="' +
+          escapeHtml(slide.alt) +
+          '" ' +
+          (index === 0 ? "" : 'loading="lazy" ') +
+          'decoding="async">' +
+          "<figcaption><span class=\"cat\">" +
+          escapeHtml(slide.category) +
+          "</span> " +
+          link(slide.creditHref, slide.credit) +
+          "</figcaption></figure>"
+        );
+      })
+      .join("");
+    var dots = slides
+      .map(function (slide, index) {
+        return (
+          '<button type="button" class="dot" data-go="' +
+          index +
+          '" aria-label="Show photo ' +
+          (index + 1) +
+          " of " +
+          slides.length +
+          ", " +
+          escapeHtml(slide.category) +
+          '"></button>'
+        );
+      })
+      .join("");
+    var street = "";
+    if (hotel.streetView) {
+      street =
+        '<p class="streetview">' +
+        link(hotel.streetView.href, hotel.streetView.label) +
+        ". " +
+        escapeHtml(hotel.streetView.note) +
+        "</p>";
+    }
     return (
-      '<figure class="photo" data-photo="' +
-      escapeHtml(hotel.id) +
-      '">' +
-      '<img src="' +
-      escapeHtml(safeUrl(photo.src)) +
-      '" alt="' +
-      escapeHtml(photo.alt) +
-      '" loading="lazy" decoding="async">' +
-      '<figcaption><a href="' +
-      escapeHtml(safeUrl(photo.creditHref)) +
-      '" target="_blank" rel="noopener noreferrer">' +
-      escapeHtml(photo.credit) +
-      "</a></figcaption>" +
-      '<p class="photo-missing" hidden>' +
-      escapeHtml(photo.missing) +
-      "</p></figure>"
+      '<div class="carousel" data-carousel tabindex="0" role="region" aria-roledescription="carousel" aria-label="' +
+      escapeHtml(hotel.shortName) +
+      ' photos">' +
+      '<div class="carousel-viewport"><div class="carousel-track">' +
+      figures +
+      "</div></div>" +
+      '<button type="button" class="car-btn car-prev" aria-label="Previous photo">‹</button>' +
+      '<button type="button" class="car-btn car-next" aria-label="Next photo">›</button>' +
+      '<div class="car-dots" role="group" aria-label="Photo choices">' +
+      dots +
+      "</div>" +
+      street +
+      "</div>"
     );
+  }
+
+  function ratingBlock(hotel) {
+    var r = hotel.reviews;
+    if (!r) return "";
+    var themes = (r.themes || [])
+      .map(function (theme) {
+        return "<li>" + escapeHtml(theme) + "</li>";
+      })
+      .join("");
+    var google = hotel.google || {};
+    var googleCell = google.verified
+      ? escapeHtml(google.score + "/5 · " + google.count + " reviews")
+      : link(google.href || hotel.mapsUrl, google.label || "Not verified—open Maps");
+    return (
+      '<section class="scorecard"><h3>Guest ratings</h3>' +
+      '<div class="score-pair">' +
+      '<div><p class="score">' +
+      escapeHtml(String(r.score)) +
+      '<span>/5</span></p><p>TripAdvisor · ' +
+      Number(r.count).toLocaleString("en-US") +
+      " reviews</p><p>" +
+      link(r.href, "TripAdvisor page") +
+      "</p><p class=\"checked\">Checked " +
+      escapeHtml(r.checked) +
+      ".</p></div>" +
+      '<div><p class="score score-missing">Not verified</p><p>Google · ' +
+      googleCell +
+      "</p><p class=\"checked\">Checked " +
+      escapeHtml(google.checked || "") +
+      ".</p></div></div>" +
+      "<ul>" +
+      themes +
+      "</ul><p class=\"checked\">" +
+      escapeHtml(r.limit) +
+      "</p></section>"
+    );
+  }
+
+  function renderRatings() {
+    var table = guide.ratingTable;
+    var root = document.getElementById("ratings");
+    if (!table || !root) return;
+    var byId = {};
+    guide.hotels.forEach(function (hotel) {
+      byId[hotel.id] = hotel;
+    });
+    var rows = table.rows
+      .map(function (row) {
+        var hotel = byId[row.hotelId];
+        var google = (hotel && hotel.google) || {};
+        return (
+          "<tr><td>" +
+          escapeHtml(row.place) +
+          "</td><td><a href=\"#hotel-" +
+          escapeHtml(row.hotelId) +
+          "\">" +
+          escapeHtml(hotel ? hotel.shortName : row.hotelId) +
+          "</a></td><td>" +
+          escapeHtml(row.score) +
+          "</td><td>" +
+          Number(row.count).toLocaleString("en-US") +
+          "</td><td>" +
+          link(google.href, google.label || "Not verified—open Maps") +
+          "</td></tr>"
+        );
+      })
+      .join("");
+    root.innerHTML =
+      '<div class="section-head"><p class="kicker">' +
+      escapeHtml(table.kicker) +
+      "</p><h2>" +
+      escapeHtml(table.heading) +
+      "</h2></div><p>" +
+      escapeHtml(table.note) +
+      '</p><div class="table-wrap"><table class="rank"><thead><tr><th>Place</th><th>Hotel</th><th>TripAdvisor</th><th>Reviews</th><th>Google</th></tr></thead><tbody>' +
+      rows +
+      "</tbody></table></div><p class=\"checked\">TripAdvisor checked " +
+      escapeHtml(table.checked) +
+      ". Google checked " +
+      escapeHtml(table.googleChecked) +
+      ".</p>";
   }
 
   function orderedHotels() {
@@ -239,7 +379,8 @@
           '<p class="address">' +
           escapeHtml(hotel.address) +
           "</p>" +
-          photoFigure(hotel) +
+          carouselHtml(hotel) +
+          ratingBlock(hotel) +
           '<div class="split">' +
           "<section><h3>Room range</h3>" +
           '<p class="price">' +
@@ -385,29 +526,74 @@
       ".";
   }
 
-  function bindPhotos() {
-    guide.hotels.forEach(function (hotel) {
-      var figure = document.querySelector('[data-photo="' + hotel.id + '"]');
-      if (!figure) return;
-      var img = figure.querySelector("img");
-      var captionLink = figure.querySelector("figcaption a");
-      var missing = figure.querySelector(".photo-missing");
-      img.addEventListener("error", function () {
-        var fallback = hotel.photo.fallback;
-        if (fallback && img.dataset.fallback !== "1") {
-          img.dataset.fallback = "1";
-          img.src = safeUrl(fallback.src);
-          img.alt = fallback.alt;
-          captionLink.href = safeUrl(fallback.creditHref);
-          captionLink.textContent = fallback.credit;
-          return;
-        }
-        img.hidden = true;
-        captionLink.parentElement.hidden = true;
-        missing.hidden = false;
-        figure.classList.add("is-missing");
+  function bindCarousels() {
+    document.querySelectorAll("[data-carousel]").forEach(function (root) {
+      var track = root.querySelector(".carousel-track");
+      var slides = root.querySelectorAll(".slide");
+      var dots = root.querySelectorAll(".dot");
+      var index = 0;
+      if (!slides.length) return;
+      function show(next) {
+        index = (next + slides.length) % slides.length;
+        track.style.transform = "translateX(" + -index * 100 + "%)";
+        dots.forEach(function (dot, i) {
+          var on = i === index;
+          dot.classList.toggle("is-active", on);
+          dot.setAttribute("aria-current", on ? "true" : "false");
+        });
+      }
+      root.querySelector(".car-prev").addEventListener("click", function () {
+        show(index - 1);
       });
+      root.querySelector(".car-next").addEventListener("click", function () {
+        show(index + 1);
+      });
+      dots.forEach(function (dot) {
+        dot.addEventListener("click", function () {
+          show(Number(dot.getAttribute("data-go")));
+        });
+      });
+      root.addEventListener("keydown", function (event) {
+        if (event.key === "ArrowLeft") {
+          show(index - 1);
+          event.preventDefault();
+        } else if (event.key === "ArrowRight") {
+          show(index + 1);
+          event.preventDefault();
+        }
+      });
+      var startX = null;
+      root.querySelector(".carousel-viewport").addEventListener("pointerdown", function (event) {
+        startX = event.clientX;
+      });
+      root.querySelector(".carousel-viewport").addEventListener("pointerup", function (event) {
+        if (startX == null) return;
+        var delta = event.clientX - startX;
+        if (Math.abs(delta) > 40) show(delta < 0 ? index + 1 : index - 1);
+        startX = null;
+      });
+      slides.forEach(function (slide) {
+        var img = slide.querySelector("img");
+        img.addEventListener("error", function () {
+          img.replaceWith(document.createTextNode("This photo did not load."));
+        });
+      });
+      show(0);
     });
+  }
+
+  function renderCrimeMaps() {
+    var block = guide.crimeMaps;
+    var root = document.getElementById("crime-maps");
+    if (!block || !root) return;
+    root.innerHTML =
+      '<div class="section-head"><p class="kicker">Not the hotel map</p><h2>' +
+      escapeHtml(block.heading) +
+      "</h2></div><p>" +
+      escapeHtml(block.lede) +
+      "</p>" +
+      sourceList(block.links) +
+      list(block.notes);
   }
 
   function popupHtml(hotel) {
@@ -494,11 +680,13 @@
 
   renderLede();
   renderShort();
+  renderRatings();
   renderMapSection();
   renderHotels();
   renderSafety();
+  renderCrimeMaps();
   renderNotListed();
   renderFooter();
-  bindPhotos();
+  bindCarousels();
   initMap();
 })();
