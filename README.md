@@ -23,7 +23,9 @@ A secured or secure label is quoted from the source. It is not a guarantee again
 
 ## Deploying
 
-The site is the repository root (`index.html`). GitHub Pages should publish the `main` branch from `/` (root). This repo includes `.nojekyll` so Jekyll does not rewrite the page.
+The site is the repository root (`index.html`). GitHub Pages publishes the `main` branch from `/` (root). This repo includes `.nojekyll` so Jekyll does not rewrite the page.
+
+Link previews use the tags in `index.html` and `assets/preview.jpg` (1200×630). The image is a crop of the four hosted hotel photos plus the title. Messaging apps may keep an older preview after a change.
 
 After it is enabled, the project URL is:
 
