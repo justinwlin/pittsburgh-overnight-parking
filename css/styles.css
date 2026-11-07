@@ -1,0 +1,443 @@
+@font-face {
+  font-family: "Source Serif 4";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../vendor/fonts/source-serif-4-400.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Source Serif 4";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../vendor/fonts/source-serif-4-600.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Source Sans 3";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../vendor/fonts/source-sans-3-400.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Source Sans 3";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../vendor/fonts/source-sans-3-600.woff2") format("woff2");
+}
+
+:root {
+  --bg: #f4efe6;
+  --bg-deep: #e8e0d2;
+  --card: #fffdf8;
+  --ink: #1c1915;
+  --muted: #5e574c;
+  --line: #ddd3c4;
+  --pine: #1a4740;
+  --pine-soft: #e6f0ec;
+  --brass: #8a4b28;
+  --shadow: 0 16px 40px rgba(48, 36, 18, 0.06);
+  --serif: "Source Serif 4", "Iowan Old Style", Palatino, Georgia, serif;
+  --sans: "Source Sans 3", "Segoe UI", sans-serif;
+  --measure: 74rem;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(1200px 420px at 10% -10%, #fff8ec 0%, transparent 55%),
+    var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+
+img { max-width: 100%; }
+
+a {
+  color: var(--pine);
+  text-underline-offset: 0.16em;
+}
+
+a:hover { color: var(--brass); }
+
+.skip {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  background: var(--ink);
+  color: white;
+  padding: 0.5rem 0.8rem;
+  z-index: 10;
+}
+
+.skip:focus { top: 0.5rem; }
+
+.wrap {
+  width: min(var(--measure), calc(100% - 2rem));
+  margin: 0 auto;
+}
+
+.site-header {
+  padding: 2.2rem 0 0.4rem;
+}
+
+.kicker {
+  margin: 0 0 0.35rem;
+  color: var(--brass);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--serif);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2.2rem, 6vw, 4.2rem);
+  max-width: 16ch;
+}
+
+.lede {
+  max-width: 42rem;
+  font-size: 1.15rem;
+  color: var(--muted);
+}
+
+.checked { color: var(--muted); font-size: 0.95rem; }
+
+.jumps {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding: 0.4rem 0 1.2rem;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(8px);
+}
+
+.jumps a {
+  flex: 0 0 auto;
+  text-decoration: none;
+  border: 1px solid var(--line);
+  background: var(--card);
+  border-radius: 999px;
+  padding: 0.45rem 0.8rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.jumps a:hover { border-color: var(--pine); }
+
+#short, #map-section, #hotels, #safety, #not-listed, .hotel {
+  margin: 0 0 2.4rem;
+  scroll-margin-top: 4.5rem;
+}
+
+#short {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 1.25rem;
+  padding: 1.25rem 1.15rem 1.1rem;
+  box-shadow: var(--shadow);
+}
+
+#short h2, .section-head h2, .hotel h2 {
+  margin: 0 0 0.8rem;
+}
+
+.choices {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.choice {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  background: var(--pine-soft);
+  border-radius: 1rem;
+  padding: 0.95rem 1rem 1rem;
+}
+
+.choice h3 { margin: 0 0 0.35rem; font-size: 1.45rem; }
+
+.choice p:last-child { margin: 0; }
+
+.note, .map-note { color: var(--muted); }
+
+.read-numbers {
+  margin-top: 1rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--line);
+}
+
+.read-numbers h3 { margin: 0 0 0.4rem; font-size: 1.2rem; }
+
+#map {
+  height: 320px;
+  border-radius: 1.1rem;
+  border: 1px solid var(--line);
+  background: #d9e2dc;
+  z-index: 1;
+}
+
+.leaflet-container { font-family: var(--sans); }
+
+.pin {
+  background: transparent;
+  border: 0;
+}
+
+.pin span {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--pine);
+  color: white;
+  border: 2px solid white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28);
+  font-weight: 600;
+}
+
+.map-keys {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.9rem;
+  margin-top: 0.4rem;
+}
+
+.map-keys a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.map-keys span {
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 50%;
+  background: var(--pine);
+  color: white;
+  display: grid;
+  place-items: center;
+  font-size: 0.8rem;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 0.8rem;
+}
+
+.popup { font-size: 0.98rem; }
+
+.popup p { margin: 0 0 0.35rem; }
+
+.popup-kicker {
+  color: var(--brass);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.popup-title {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.popup-actions a { font-weight: 600; }
+
+.hotel {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 1.25rem;
+  padding: 1.1rem 1rem 1.15rem;
+  margin: 0 0 1rem;
+  box-shadow: var(--shadow);
+}
+
+.hotel-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+  align-items: baseline;
+}
+
+.pick {
+  margin: 0;
+  color: var(--pine);
+  font-weight: 600;
+  font-size: 0.92rem;
+  text-align: right;
+}
+
+.address { margin-top: -0.2rem; color: var(--muted); }
+
+.photo {
+  margin: 0.4rem 0 1rem;
+  background: var(--bg-deep);
+  border-radius: 0.9rem;
+  overflow: hidden;
+}
+
+.photo img {
+  display: block;
+  width: 100%;
+  max-height: 460px;
+  object-fit: contain;
+  background: #efe8dc;
+}
+
+.photo figcaption {
+  margin: 0;
+  padding: 0.55rem 0.75rem 0.7rem;
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.photo.is-missing .photo-missing {
+  margin: 0;
+  padding: 2.2rem 1rem;
+  text-align: center;
+}
+
+.split { display: grid; gap: 0.4rem 1.4rem; }
+
+.price {
+  font-family: var(--serif);
+  font-size: 1.7rem;
+  margin: 0.2rem 0;
+}
+
+.points {
+  margin-top: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.walk, .tradeoff {
+  background: var(--bg);
+  border-radius: 0.8rem;
+  padding: 0.7rem 0.85rem 0.2rem;
+}
+
+.tradeoff { border: 1px solid var(--line); margin: 0 0 0.6rem; }
+
+.sources { padding-left: 1.1rem; }
+
+.sources li { margin: 0.15rem 0; }
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.6rem;
+}
+
+.actions a, .show-map {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.show-map {
+  border: 0;
+  background: var(--pine);
+  color: white;
+  font: inherit;
+  cursor: pointer;
+}
+
+.actions a {
+  border: 1px solid var(--pine);
+  background: white;
+}
+
+.show-map:hover { background: #12352f; color: white; }
+
+#safety, #not-listed {
+  background: transparent;
+}
+
+.reports {
+  margin-top: 1rem;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  padding: 0.8rem 1rem 0.4rem;
+}
+
+.reports summary {
+  cursor: pointer;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+}
+
+.table-wrap { overflow-x: auto; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.45rem 0.55rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.places { padding-left: 1.1rem; }
+
+.site-footer {
+  border-top: 1px solid var(--line);
+  padding: 1.2rem 0 2.4rem;
+  color: var(--muted);
+}
+
+@media (min-width: 720px) {
+  .wrap { width: min(var(--measure), calc(100% - 4rem)); }
+  #short { padding: 1.6rem 1.6rem 1.3rem; }
+  .choices { grid-template-columns: 1fr 1fr; }
+  #map { height: 460px; }
+  .hotel { padding: 1.4rem 1.4rem 1.3rem; }
+  .split { grid-template-columns: 0.8fr 1.2fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+@media print {
+  .jumps, .actions, .show-map { display: none; }
+  body { background: white; }
+  .hotel, #short { box-shadow: none; }
+}

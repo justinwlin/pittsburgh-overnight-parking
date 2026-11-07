@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pittsburgh overnight parking</title>
+  <meta name="description" content="One quiet night on the way to Detroit. Prefers a secured garage near I-79 or the Turnpike; downtown garages are listed because parking qualifies, not because downtown is unsafe. Not a booking site.">
+  <meta name="theme-color" content="#1a4740">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip" href="#content">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap">
+      <p class="kicker">Pittsburgh · one night</p>
+      <h1>Overnight parking on the way to Detroit</h1>
+      <p class="lede" id="lede">Loading the guide.</p>
+      <p class="checked" id="checked-line">Checked November 7, 2026.</p>
+    </div>
+  </header>
+  <div class="wrap">
+    <nav class="jumps" aria-label="On this page">
+      <a href="#short">Recommendation</a>
+      <a href="#map-section">Map</a>
+      <a href="#hotels">Hotels</a>
+      <a href="#safety">Safety</a>
+    </nav>
+  </div>
+  <main id="content" class="wrap">
+    <section id="short" aria-labelledby="short-title"></section>
+    <section id="map-section"></section>
+    <section id="hotels"></section>
+    <section id="safety"></section>
+    <section id="not-listed"></section>
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p id="footer-note">Public planning notes. Map data © OpenStreetMap contributors.</p>
+    </div>
+  </footer>
+  <noscript>
+    <p class="wrap">This guide needs JavaScript to draw the map and the hotel cards. The facts live in <code>js/data.js</code>.</p>
+  </noscript>
+  <script src="vendor/leaflet/leaflet.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
